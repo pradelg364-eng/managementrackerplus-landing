@@ -1,0 +1,4 @@
+node_modules/
+integration-spec.md
+/tmp/
+*.log

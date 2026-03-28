@@ -3090,8 +3090,8 @@ a, button, [role="button"], input, textarea, select {
       };
       
       try {
-        const API_BASE = '__PORT_5000__'.startsWith('__') ? '' : '__PORT_5000__';
-        const response = await fetch(API_BASE + '/api/feedback', {
+        // Try backend API first (works when hosted with server.js)
+        const response = await fetch('./api/feedback', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData)
@@ -3100,12 +3100,9 @@ a, button, [role="button"], input, textarea, select {
         const result = await response.json();
         
         if (result.success) {
-          // Show success state
           submitBtn.innerHTML = '\u2713 Feedback Received \u2014 Thank You!';
           submitBtn.style.background = '#437a22';
           feedbackForm.querySelectorAll('input, select, textarea').forEach(el => el.disabled = true);
-          
-          // Add a success message above the button
           const successMsg = document.createElement('div');
           successMsg.style.cssText = 'text-align:center; padding: var(--space-4); background: rgba(67,122,34,0.08); border-radius: var(--radius-md); color: #437a22; font-weight: 600; margin-bottom: var(--space-4);';
           successMsg.textContent = 'Your feedback has been recorded and we will follow up soon.';
@@ -3114,10 +3111,19 @@ a, button, [role="button"], input, textarea, select {
           throw new Error(result.error || 'Submission failed');
         }
       } catch (err) {
+        // Fallback: compose mailto link (for static hosting like GitHub Pages)
+        const subject = encodeURIComponent('[RD Chronicles] Feedback from ' + formData.name);
+        const body = encodeURIComponent(
+          'Name: ' + formData.name + '\n' +
+          'Email: ' + (formData.email || 'N/A') + '\n' +
+          'Role: ' + formData.role + '\n' +
+          'Preferred Framework: ' + (formData.framework || 'N/A') + '\n' +
+          'Rating: ' + (formData.rating || 'N/A') + '/5\n\n' +
+          'Biggest Challenge:\n' + (formData.challenge || 'N/A')
+        );
+        window.location.href = 'mailto:pradelg364@gmail.com?subject=' + subject + '&body=' + body;
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
-        alert('Something went wrong. Please try again.');
-        console.error(err);
       }
     });
   }

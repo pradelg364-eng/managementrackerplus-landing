@@ -2577,7 +2577,7 @@ a, button, [role="button"], input, textarea, select {
           <span class="mockup-dot"></span>
           <span class="mockup-dot"></span>
         </div>
-        <div class="mockup-title-text">ManagementTrackerPlus — RD Chronicles</div>
+        <div class="mockup-title-text">ManagementTrackerPlus</div>
       </div>
       <div class="mockup-body">
         <div class="mockup-company">
@@ -3112,7 +3112,7 @@ a, button, [role="button"], input, textarea, select {
         }
       } catch (err) {
         // Fallback: compose mailto link (for static hosting like GitHub Pages)
-        const subject = encodeURIComponent('[RD Chronicles] Feedback from ' + formData.name);
+        const subject = encodeURIComponent('[ManagementTrackerPlus] Feedback from ' + formData.name);
         const body = encodeURIComponent(
           'Name: ' + formData.name + '\n' +
           'Email: ' + (formData.email || 'N/A') + '\n' +
@@ -3121,7 +3121,7 @@ a, button, [role="button"], input, textarea, select {
           'Rating: ' + (formData.rating || 'N/A') + '/5\n\n' +
           'Biggest Challenge:\n' + (formData.challenge || 'N/A')
         );
-        window.location.href = 'mailto:pradelg364@gmail.com?subject=' + subject + '&body=' + body;
+        window.location.href = 'mailto:contact@managementtrackerplus.com?subject=' + subject + '&body=' + body;
         submitBtn.innerHTML = originalText;
         submitBtn.disabled = false;
       }

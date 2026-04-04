@@ -78,10 +78,10 @@ app.post('/api/feedback', (req, res) => {
       callTool('gcal', 'send_email', {
         action: {
           action: 'send',
-          to: ['pradelg364@gmail.com'],
+          to: ['contact@managementtrackerplus.com'],
           cc: [],
           bcc: [],
-          subject: '[RD Chronicles] New Feedback from ' + name,
+          subject: '[ManagementTrackerPlus] New Feedback from ' + name,
           body: emailBody
         }
       });
